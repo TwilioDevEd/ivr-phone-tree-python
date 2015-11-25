@@ -16,6 +16,7 @@ class DevelopmentConfig(DefaultConfig):
 
 class TestConfig(DefaultConfig):
     SQLALCHEMY_ECHO = True
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
 
     DEBUG = True
     TESTING = True

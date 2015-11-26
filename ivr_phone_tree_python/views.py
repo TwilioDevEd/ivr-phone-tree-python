@@ -31,7 +31,7 @@ def menu():
         option_actions[selected_option](response)
         return twiml(response)
 
-    return redirect_welcome()
+    return _redirect_welcome()
 
 
 # post
@@ -47,7 +47,7 @@ def planets():
         response.dial(option_actions[selected_option])
         return twiml(response)
 
-    return redirect_welcome()
+    return _redirect_welcome()
 
 
 # private methods
@@ -76,7 +76,7 @@ def _list_planets(response):
     return response
 
 
-def redirect_welcome():
+def _redirect_welcome():
     response = twilio.twiml.Response()
     response.say("Returning to the main menu", voice="alice", language="en-GB")
 

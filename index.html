@@ -1,0 +1,137 @@
+<!DOCTYPE html><html><head><title>IVR Phone Tree</title><style>body, html {
+  height:100%;
+  width:100%;
+  padding:0;
+  margin:0;
+  overflow:hidden;
+  background-color:#ddd;
+}
+.wrapper {
+  height:100%;
+  width:100%;
+}</style><link rel="shortcut icon" href="//twilio.com/bundles/marketing/img/favicons/favicon.ico"><link rel="apple-touch-icon" href="//twilio.com/bundles/marketing/img/favicons/favicon_57.png"><link rel="apple-touch-icon" sizes="72x72" href="//twilio.com/bundles/marketing/img/favicons/favicon_72.png"><link rel="apple-touch-icon" sizes="114x114" href="//twilio.com/bundles/marketing/img/favicons/favicon_114.png"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"><link rel="stylesheet" href="viewsaurus.css"></head><body><div class="wrapper"><div id="viewsaurus" data-title="IVR Phone Tree"><div class="saurus-panes"><div class="saurus-prose"><div class="saurus-prose-header"><div class="title-outer"><span class="step-title">IVR Phone Tree</span></div></div><div class="saurus-nav-buttons"><div class="saurus-nav-button nav-overview"><div class="saurus-nav-button-inner"><i class="fa fa-fw fa-list"></i></div><div class="nav-divider"></div></div><div class="saurus-nav-button nav-previous"><div class="saurus-nav-button-inner"><a href=""> <i class="fa fa-fw fa-play fa-rotate-180"></i></a></div><div class="nav-divider"></div></div><div class="saurus-nav-button nav-next clickable"><div class="saurus-nav-button-inner"><a href="#1"> <i class="fa fa-fw fa-play"></i></a></div></div><div class="saurus-next-title"><span class="next-title-inner"></span></div></div><div class="saurus-progress-bar"></div><div class="saurus-start"><p>IVRs (interactive voice response) are automated phone systems that can facilitate communication between callers and businesses. If you've ever dialed your credit card company to check on a balance after responding to a series of automated prompts, you've used an IVR. Learn how to build an IVR in minutes using Twilio's powerful TwiMl API.</p><a href="#0">Start Tutorial</a></div><div class="saurus-content"><div data-title="IVR Phone Tree" class="chapter"><div data-title="Introduction" data-file="ivr_phone_tree_python/__init__.py" class="step"><h2 id="about-this-application">About this application</h2>
+<p><img src="http://howtodocs.s3.amazonaws.com/logo-et-phone2.png" alt="Extra Terrestrial Phone Home
+Service"></p>
+<p>This Python&#39;s <a href="http://rubyonrails.org/">Flask</a> sample application is
+modeled after a typical call center experience, but with more <a href="https://en.wikipedia.org/wiki/Reese%27s_Pieces#ET:_The_Extra-
+Terrestrial">Reese&#39;s
+Pieces</a>.</p>
+<p>Stranded aliens can call a phone number and receive instructions on how
+to get out of earth safely, or call their home planet
+directly<a href="http://bit.ly/asogi">.</a> In this tutorial, we&#39;ll show you the
+key bits of code to make this work.</p>
+<p>To run this sample app yourself, <a href="https://github.com/TwilioDevEd/ivr-phone-tree-
+python">download the code and follow the
+instructions on GitHub</a>.</p>
+<p>Let&#39;s get started! Click the right arrow above to move to the next step
+of the tutorial.</p>
+<hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="//flask.pocoo.org/docs/0.10/quickstart/">Getting Started with Flask</a></li>
+<li><a href="//www.twilio.com/docs/api/twiml/your_response">TwiML Responses</a></li>
+<li><a href="//twilio-python.readthedocs.org/en/latest/usage/twiml.html">TwiML Creation with Twilio-Python helper library</a></li>
+</ul>
+</div><div data-title="Respond a Phone Call" data-file="ivr_phone_tree_python/__init__.py" class="step"><h2 id="respond-to-the-phone-call">Respond to the Phone Call</h2>
+<p>To initiate the phone tree, we need to configure one of our Twilio
+numbers to send our web application an HTTP request when we
+get an incoming call.</p>
+<p><a href="/user/account/phone-numbers/incoming">Click on one of your numbers</a> and
+configure the Voice URL to point to our app. In our code the route
+will be <code>/ivr/welcome</code>.</p>
+<p><img src="//s3.amazonaws.com/howtodocs/number-
+config.png" alt="Configuring a Twilio Number"></p>
+<hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="/help/faq/voice/how-do-i-assign-my-twilio-number-to-my-voice-application">Configuring Twilio Numbers for Voice</a></li>
+<li><a href="https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html">Using ngrok to test your Twilio webhooks locally</a></li>
+</ul>
+</div><div data-title="Respond to Twilio request" data-file="ivr_phone_tree_python/views.py" data-highlight="13-18" class="step"><h2 id="respond-to-the-twilio-request-with-twiml">Respond to the Twilio request with TwiML</h2>
+<p>Our Twilio number is now configured to <a href="https://www.twilio.com/docs/api/twiml/twilio_request">send HTTP
+requests</a> to this
+controller method on any incoming voice calls. Our app responds with
+<a href="https://www.twilio.com/docs/api/twiml">TwiML</a> to tell Twilio what to do
+in response to the message.</p>
+<p>In this case we tell Twilio to
+<a href="https://www.twilio.com/docs/api/twiml/gather"><code>Gather</code></a> the input from
+the caller and we <a href="https://www.twilio.com/docs/api/twiml/play"><code>Play</code></a> a
+welcome message.</p>
+<p>You may have noted we&#39;re using an unknown method <code>twiml</code>. This is a custom view helper
+that takes a TwiML Response and transform it in a valid Http Response. It&#39;s super easy,
+check the implementation:</p>
+<pre><code>import flask
+
+def twiml(resp):
+    resp = flask.Response(str(resp))
+    resp.headers[&#39;Content-Type&#39;] = &#39;text/xml&#39;
+    return resp
+</code></pre><hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="https://www.twilio.com/docs/api/twiml/gather#attributes">Gather attributes</a></li>
+<li><a href="https://www.twilio.com/docs/api/twiml/play#attributes-loop">Play &#39;loop&#39; attribute</a></li>
+</ul>
+</div><div data-title="Gather user input" data-file="ivr_phone_tree_python/views.py" data-highlight="16" class="step"><h2 id="where-to-send-the-caller-s-input">Where to send the caller&#39;s input</h2>
+<p>The <em>gather&#39;s</em> <code>action</code> parameter takes an absolute or relative URL as a
+value - in our case, the <code>menu</code> endpoint.</p>
+<p>When the caller has finished entering digits Twilio will make a
+GET or POST request to this URL including a
+<a href="https://www.twilio.com/docs/api/twiml/gather#attributes-action-parameters"><code>Digits</code></a> parameter with the number our caller chose.</p>
+<p>After making this request, Twilio will continue the current call using
+the TwiML received in your response. Any TwiML verbs occuring after a <code>&lt;Gather&gt;</code>
+are unreachable, unless the caller enters no digits.</p>
+<hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="https://www.twilio.com/docs/api/twiml/twilio_request#synchronous-request-parameters">Twilio Request parameters</a></li>
+</ul>
+</div><div data-title="IVR Menu" data-file="ivr_phone_tree_python/views.py" data-highlight="21-32, 52-73" class="step"><h2 id="the-main-menu-process-the-caller-s-selection">The Main Menu: Process the caller&#39;s selection</h2>
+<p>The route <code>/ivr/menu</code> handles processing the caller&#39;s input.</p>
+<p>If our caller chooses &#39;1&#39; for directions, we use method defined
+below, <a href="//github.com/TwilioDevEd/ivr-phone-tree-python/blob/61dba01c2a16ba23a24b703396bf4adfd9465355/ivr_phone_tree_python/views.py#L52-L63"><code>_give_instructions</code></a>,
+to respond with TwiML that will
+<a href="https://www.twilio.com/docs/api/twiml/say"><code>Say</code></a> directions to our
+caller&#39;s extraction point.</p>
+<p>If the caller chooses &#39;2&#39; to call her home planet, then we need to
+gather more input from her. We wrote another method to handle this,
+<a href="//github.com/TwilioDevEd/ivr-phone-tree-python/blob/61dba01c2a16ba23a24b703396bf4adfd9465355/ivr_phone_tree_python/views.py#L66-L73"><code>_list_planets</code></a>,
+which we&#39;ll cover in the next step.</p>
+<p>If the caller enters anything else we respond with a TwiML
+<a href="https://www.twilio.com/docs/api/twiml/redirect"><code>Redirect</code></a> to the main
+menu.</p>
+<hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="https://www.codecademy.com/glossary/ruby/switch-statement">Ruby Switch statment</a></li>
+<li><a href="https://www.twilio.com/docs/api/twiml/hangup">The TwiML Hangup verb</a></li>
+<li><a href="https://www.twilio.com/docs/api/twiml/say#attributes-alice">TwiMl Say: Language Options</a></li>
+</ul>
+</div><div data-title="The Planet Directory" data-file="ivr_phone_tree_python/views.py" data-highlight="37-49" class="step"><h2 id="the-planet-directory-collect-more-input-from-the-user">The Planet Directory: Collect more input from the user</h2>
+<p>If our caller chooses to call her home planet we will tell her the planet
+directory. This is akin to a typical &quot;company directory&quot; feature of
+most IVRs.</p>
+<p>In our TwiML response we again use a <code>Gather</code> verb to receive our caller&#39;s
+input. The <code>action</code> verb points this time to the <code>planets</code> route, which
+will switch our response based on what the caller chooses.</p>
+<p>The TwiML response we return for that route just uses a
+<a href="https://www.twilio.com/docs/api/twiml/dial"><code>Dial</code></a> verb with the
+appropriate phone number to connect our caller to her home planet.</p>
+</div><div class="step"><h2 id="where-to-next-">Where to next?</h2>
+<p>That&#39;s it! We&#39;ve just implemented an IVR phone tree that will delight
+and serve your customers.</p>
+<p>If you&#39;re a Python/Flask developer working with Twilio,
+you might want to check out these other tutorials:</p>
+<p><a href="//www.twilio.com/docs/tutorials/walkthrough/appointment-reminders/python/flask"><strong>Appointment Reminders</strong></a></p>
+<p>Use Twilio to automate the process of reaching out to your customers in advance of an upcoming appointment.</p>
+<p><a href="//www.twilio.com/docs/tutorials/walkthrough/two-factor-authentication/python/flask"><strong>Two-Factor Authentication with Authy</strong></a></p>
+<p>Use Twilio and Twilio-powered Authy OneTouch to implement two-factor authentication (2FA) in your web app</p>
+<h3 id="did-this-help-">Did this help?</h3>
+<p>Thanks for checking out this tutorial! If you have any feedback to share
+with us, we&#39;d love to hear it. Tweet
+<a href="http://twitter.com/twilio">@twilio</a> to let us know what you think.</p>
+</div></div>
+<div class="saurus-files" style="display:none;"><textarea class="saurus-file" data-file="ivr_phone_tree_python/__init__.py" data-mode="python">ZnJvbSBmbGFzayBpbXBvcnQgRmxhc2sKZnJvbSBpdnJfcGhvbmVfdHJlZV9weXRob24uY29uZmlnIGltcG9ydCBjb25maWdfZW52X2ZpbGVzCgoKZGVmIGNvbmZpZ3VyZV9hcHAobmV3X2FwcCwgY29uZmlnX25hbWU9J2RldmVsb3BtZW50Jyk6CiAgICAjIG5ld19hcHAgPSBGbGFzayhfX25hbWVfXykKICAgIG5ld19hcHAuY29uZmlnLmZyb21fb2JqZWN0KGNvbmZpZ19lbnZfZmlsZXNbY29uZmlnX25hbWVdKQoKCmFwcCA9IEZsYXNrKF9fbmFtZV9fKQppbXBvcnQgaXZyX3Bob25lX3RyZWVfcHl0aG9uLnZpZXdzCgpjb25maWd1cmVfYXBwKGFwcCkK</textarea>
+<textarea class="saurus-file" data-file="ivr_phone_tree_python/views.py" data-mode="python">77u/ZnJvbSBmbGFzayBpbXBvcnQgcmVuZGVyX3RlbXBsYXRlLCByZWRpcmVjdCwgdXJsX2ZvciwgcmVxdWVzdCwgc2Vzc2lvbiwgZmxhc2gKZnJvbSBpdnJfcGhvbmVfdHJlZV9weXRob24gaW1wb3J0IGFwcAppbXBvcnQgdHdpbGlvLnR3aW1sCmZyb20gaXZyX3Bob25lX3RyZWVfcHl0aG9uLnZpZXdfaGVscGVycyBpbXBvcnQgdHdpbWwKCgpAYXBwLnJvdXRlKCcvJykKQGFwcC5yb3V0ZSgnL2l2cicpCmRlZiBob21lKCk6CiAgICByZXR1cm4gcmVuZGVyX3RlbXBsYXRlKCdpbmRleC5odG1sJykKCgojIHBvc3QKQGFwcC5yb3V0ZSgnL2l2ci93ZWxjb21lJywgbWV0aG9kcz1bJ1BPU1QnXSkKZGVmIHdlbGNvbWUoKToKICAgIHJlc3BvbnNlID0gdHdpbGlvLnR3aW1sLlJlc3BvbnNlKCkKICAgIHdpdGggcmVzcG9uc2UuZ2F0aGVyKG51bURpZ2l0cz0xLCBhY3Rpb249dXJsX2ZvcignbWVudScpLCBtZXRob2Q9IlBPU1QiKSBhcyBnOgogICAgICAgIGcucGxheSh1cmw9Imh0dHA6Ly9ob3d0b2RvY3MuczMuYW1hem9uYXdzLmNvbS9ldC1waG9uZS5tcDMiLCBsb29wPTMpCiAgICByZXR1cm4gdHdpbWwocmVzcG9uc2UpCgoKIyBwb3N0CkBhcHAucm91dGUoJy9pdnIvbWVudScsIG1ldGhvZHM9WydQT1NUJ10pCmRlZiBtZW51KCk6CiAgICBzZWxlY3RlZF9vcHRpb24gPSByZXF1ZXN0LmZvcm1bJ0RpZ2l0cyddCiAgICBvcHRpb25fYWN0aW9ucyA9IHsnMSc6IF9naXZlX2luc3RydWN0aW9ucywKICAgICAgICAgICAgICAgICAgICAgICcyJzogX2xpc3RfcGxhbmV0c30KCiAgICBpZiBvcHRpb25fYWN0aW9ucy5oYXNfa2V5KHNlbGVjdGVkX29wdGlvbik6CiAgICAgICAgcmVzcG9uc2UgPSB0d2lsaW8udHdpbWwuUmVzcG9uc2UoKQogICAgICAgIG9wdGlvbl9hY3Rpb25zW3NlbGVjdGVkX29wdGlvbl0ocmVzcG9uc2UpCiAgICAgICAgcmV0dXJuIHR3aW1sKHJlc3BvbnNlKQoKICAgIHJldHVybiByZWRpcmVjdF93ZWxjb21lKCkKCgojIHBvc3QKQGFwcC5yb3V0ZSgnL2l2ci9wbGFuZXRzJywgbWV0aG9kcz1bJ1BPU1QnXSkKZGVmIHBsYW5ldHMoKToKICAgIHNlbGVjdGVkX29wdGlvbiA9IHJlcXVlc3QuZm9ybVsnRGlnaXRzJ10KICAgIG9wdGlvbl9hY3Rpb25zID0geycyJzogIisxMjAyNDE3MzM3OCIsCiAgICAgICAgICAgICAgICAgICAgICAnMyc6ICIrMTIwMjczMzYzODYiLAogICAgICAgICAgICAgICAgICAgICAgIjQiOiAiKzEyMDI3MzM2NjM3In0KCiAgICBpZiBvcHRpb25fYWN0aW9ucy5oYXNfa2V5KHNlbGVjdGVkX29wdGlvbik6CiAgICAgICAgcmVzcG9uc2UgPSB0d2lsaW8udHdpbWwuUmVzcG9uc2UoKQogICAgICAgIHJlc3BvbnNlLmRpYWwob3B0aW9uX2FjdGlvbnNbc2VsZWN0ZWRfb3B0aW9uXSkKICAgICAgICByZXR1cm4gdHdpbWwocmVzcG9uc2UpCgogICAgcmV0dXJuIHJlZGlyZWN0X3dlbGNvbWUoKQoKCiMgcHJpdmF0ZSBtZXRob2RzCgpkZWYgX2dpdmVfaW5zdHJ1Y3Rpb25zKHJlc3BvbnNlKToKICAgIHJlc3BvbnNlLnNheSgiVG8gZ2V0IHRvIHlvdXIgZXh0cmFjdGlvbiBwb2ludCwgZ2V0IG9uIHlvdXIgYmlrZSBhbmQgZ28gZG93biAiICsKICAgICAgICAgICAgICAgICAidGhlIHN0cmVldC4gVGhlbiBMZWZ0IGRvd24gYW4gYWxsZXkuIEF2b2lkIHRoZSBwb2xpY2UgY2Fycy4gVHVybiBsZWZ0ICIgKwogICAgICAgICAgICAgICAgICJpbnRvIGFuIHVuZmluaXNoZWQgaG91c2luZyBkZXZlbG9wbWVudC4gRmx5IG92ZXIgdGhlIHJvYWRibG9jay4gR28gIiArCiAgICAgICAgICAgICAgICAgInBhc3NlZCB0aGUgbW9vbi4gU29vbiBhZnRlciB5b3Ugd2lsbCBzZWUgeW91ciBtb3RoZXIgc2hpcC4iLAogICAgICAgICAgICAgICAgIHZvaWNlPSJhbGljZSIsIGxhbmd1YWdlPSJlbi1HQiIpCgogICAgcmVzcG9uc2Uuc2F5KCJUaGFuayB5b3UgZm9yIGNhbGxpbmcgdGhlIEVUIFBob25lIEhvbWUgU2VydmljZSAtIHRoZSAiICsKICAgICAgICAgICAgICAgICAiYWR2ZW50dXJvdXMgYWxpZW4ncyBmaXJzdCBjaG9pY2UgaW4gaW50ZXJnYWxhY3RpYyB0cmF2ZWwiKQoKICAgIHJlc3BvbnNlLmhhbmd1cCgpCiAgICByZXR1cm4gcmVzcG9uc2UKCgpkZWYgX2xpc3RfcGxhbmV0cyhyZXNwb25zZSk6CiAgICB3aXRoIHJlc3BvbnNlLmdhdGhlcihudW1EaWdpdHM9MSwgYWN0aW9uPXVybF9mb3IoJ3BsYW5ldHMnKSwgbWV0aG9kPSJQT1NUIikgYXMgZzoKICAgICAgICBnLnNheSgiVG8gY2FsbCB0aGUgcGxhbmV0IEJyb2ggZG9lIEFzIE8gRywgcHJlc3MgMi4gVG8gY2FsbCB0aGUgcGxhbmV0ICIgKwogICAgICAgICAgICAgICJEdWhHbyBiYWgsIHByZXNzIDMuIFRvIGNhbGwgYW4gb29iZXIgYXN0ZXJvaWQgdG8geW91ciBsb2NhdGlvbiwgcHJlc3MgNC4gVG8gIiArCiAgICAgICAgICAgICAgImdvIGJhY2sgdG8gdGhlIG1haW4gbWVudSwgcHJlc3MgdGhlIHN0YXIga2V5ICIsCiAgICAgICAgICAgICAgdm9pY2U9ImFsaWNlIiwgbGFuZ3VhZ2U9ImVuLUdCIiwgbG9vcD0zKQoKICAgIHJldHVybiByZXNwb25zZQoKCmRlZiByZWRpcmVjdF93ZWxjb21lKCk6CiAgICByZXNwb25zZSA9IHR3aWxpby50d2ltbC5SZXNwb25zZSgpCiAgICByZXNwb25zZS5zYXkoIlJldHVybmluZyB0byB0aGUgbWFpbiBtZW51Iiwgdm9pY2U9ImFsaWNlIiwgbGFuZ3VhZ2U9ImVuLUdCIikKCiAgICByZXR1cm4gdHdpbWwocmVzcG9uc2UucmVkaXJlY3QoYWN0aW9uPXVybF9mb3IoJ3dlbGNvbWUnKSkpCg==</textarea>
+</div>
+</div><div class="saurus-overview"><ul></ul></div></div><div class="saurus-code"><div class="file-path"><span class="crumb-container"></span><i class="fa fa-fw fa-folder"></i></div><div class="saurus-editor"></div></div><div class="saurus-explorer"><div class="saurus-file-list"></div><a href="https://github.com/TwilioDevEd/ivr-phone-tree-python" target="_blank" class="explorer-get-code"> <i class="fa fa-lg fa-github-square"> </i>View Code on GitHub</a></div></div></div></div><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script><script src="ace/ace.js"></script><script src="ace/theme-monokai.js"></script><script src="viewsaurus.js"></script></body></html>

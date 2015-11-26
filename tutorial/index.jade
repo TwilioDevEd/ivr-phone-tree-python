@@ -1,0 +1,174 @@
+.chapter(data-title='IVR Phone Tree')
+  .step(data-title='Introduction', data-file='ivr_phone_tree_python/__init__.py')
+    :markdown
+      ## About this application
+
+      ![Extra Terrestrial Phone Home
+      Service](http://howtodocs.s3.amazonaws.com/logo-et-phone2.png)
+
+      This Python's [Flask](http://rubyonrails.org/) sample application is
+      modeled after a typical call center experience, but with more [Reese's
+      Pieces](https://en.wikipedia.org/wiki/Reese%27s_Pieces#ET:_The_Extra-
+      Terrestrial).
+
+      Stranded aliens can call a phone number and receive instructions on how
+      to get out of earth safely, or call their home planet
+      directly[.](http://bit.ly/asogi) In this tutorial, we'll show you the
+      key bits of code to make this work.
+
+      To run this sample app yourself, [download the code and follow the
+      instructions on GitHub](https://github.com/TwilioDevEd/ivr-phone-tree-
+      python).
+
+      Let's get started! Click the right arrow above to move to the next step
+      of the tutorial.
+
+      ---
+
+      **See Also:**
+      * [Getting Started with Flask](//flask.pocoo.org/docs/0.10/quickstart/)
+      * [TwiML Responses](//www.twilio.com/docs/api/twiml/your_response)
+      * [TwiML Creation with Twilio-Python helper library](//twilio-python.readthedocs.org/en/latest/usage/twiml.html)
+
+  .step(data-title='Respond a Phone Call', data-file='ivr_phone_tree_python/__init__.py')
+    :markdown
+      ## Respond to the Phone Call
+
+      To initiate the phone tree, we need to configure one of our Twilio
+      numbers to send our web application an HTTP request when we
+      get an incoming call.
+
+      [Click on one of your numbers](/user/account/phone-numbers/incoming) and
+      configure the Voice URL to point to our app. In our code the route
+      will be `/ivr/welcome`.
+
+      ![Configuring a Twilio Number](//s3.amazonaws.com/howtodocs/number-
+      config.png)
+
+      ---
+
+      **See Also:**
+      * [Configuring Twilio Numbers for Voice](/help/faq/voice/how-do-i-assign-my-twilio-number-to-my-voice-application)
+      * [Using ngrok to test your Twilio webhooks locally](https://www.twilio.com/blog/2013/10/test-your-webhooks-locally-with-ngrok.html)
+
+  .step(data-title='Respond to Twilio request', data-file='ivr_phone_tree_python/views.py', data-highlight='13-18')
+    :markdown
+      ## Respond to the Twilio request with TwiML
+
+      Our Twilio number is now configured to [send HTTP
+      requests](https://www.twilio.com/docs/api/twiml/twilio_request) to this
+      controller method on any incoming voice calls. Our app responds with
+      [TwiML](https://www.twilio.com/docs/api/twiml) to tell Twilio what to do
+      in response to the message.
+
+      In this case we tell Twilio to
+      [`Gather`](https://www.twilio.com/docs/api/twiml/gather) the input from
+      the caller and we [`Play`](https://www.twilio.com/docs/api/twiml/play) a
+      welcome message.
+
+      You may have noted we're using an unknown method `twiml`. This is a custom view helper
+      that takes a TwiML Response and transform it in a valid Http Response. It's super easy,
+      check the implementation:
+
+      ```
+      import flask
+
+      def twiml(resp):
+          resp = flask.Response(str(resp))
+          resp.headers['Content-Type'] = 'text/xml'
+          return resp
+      ```
+
+      ---
+
+      **See Also:**
+      * [Gather attributes](https://www.twilio.com/docs/api/twiml/gather#attributes)
+      * [Play 'loop' attribute](https://www.twilio.com/docs/api/twiml/play#attributes-loop)
+
+  .step(data-title='Gather user input', data-file='ivr_phone_tree_python/views.py', data-highlight='16')
+    :markdown
+      ## Where to send the caller's input
+
+      The *gather's* `action` parameter takes an absolute or relative URL as a
+      value - in our case, the `menu` endpoint.
+
+      When the caller has finished entering digits Twilio will make a
+      GET or POST request to this URL including a
+      [`Digits`](https://www.twilio.com/docs/api/twiml/gather#attributes-action-parameters) parameter with the number our caller chose.
+
+      After making this request, Twilio will continue the current call using
+      the TwiML received in your response. Any TwiML verbs occuring after a `<Gather>`
+      are unreachable, unless the caller enters no digits.
+
+      ---
+
+      **See Also:**
+      * [Twilio Request parameters](https://www.twilio.com/docs/api/twiml/twilio_request#synchronous-request-parameters)
+
+  .step(data-title='IVR Menu', data-file='ivr_phone_tree_python/views.py', data-highlight='21-32, 52-73')
+    :markdown
+      ## The Main Menu: Process the caller's selection
+
+      The route `/ivr/menu` handles processing the caller's input.
+
+      If our caller chooses '1' for directions, we use method defined
+      below, [`_give_instructions`](//github.com/TwilioDevEd/ivr-phone-tree-python/blob/61dba01c2a16ba23a24b703396bf4adfd9465355/ivr_phone_tree_python/views.py#L52-L63),
+      to respond with TwiML that will
+      [`Say`](https://www.twilio.com/docs/api/twiml/say) directions to our
+      caller's extraction point.
+
+      If the caller chooses '2' to call her home planet, then we need to
+      gather more input from her. We wrote another method to handle this,
+      [`_list_planets`](//github.com/TwilioDevEd/ivr-phone-tree-python/blob/61dba01c2a16ba23a24b703396bf4adfd9465355/ivr_phone_tree_python/views.py#L66-L73),
+      which we'll cover in the next step.
+
+      If the caller enters anything else we respond with a TwiML
+      [`Redirect`](https://www.twilio.com/docs/api/twiml/redirect) to the main
+      menu.
+
+      ---
+
+      **See Also:**
+      * [Ruby Switch statment](https://www.codecademy.com/glossary/ruby/switch-statement)
+      * [The TwiML Hangup verb](https://www.twilio.com/docs/api/twiml/hangup)
+      * [TwiMl Say: Language Options](https://www.twilio.com/docs/api/twiml/say#attributes-alice)
+
+  .step(data-title='The Planet Directory', data-file='ivr_phone_tree_python/views.py', data-highlight='37-49')
+    :markdown
+      ## The Planet Directory: Collect more input from the user
+
+      If our caller chooses to call her home planet we will tell her the planet
+      directory. This is akin to a typical "company directory" feature of
+      most IVRs.
+
+      In our TwiML response we again use a `Gather` verb to receive our caller's
+      input. The `action` verb points this time to the `planets` route, which
+      will switch our response based on what the caller chooses.
+
+      The TwiML response we return for that route just uses a
+      [`Dial`](https://www.twilio.com/docs/api/twiml/dial) verb with the
+      appropriate phone number to connect our caller to her home planet.
+
+  .step
+    :markdown
+      ## Where to next?
+
+      That's it! We've just implemented an IVR phone tree that will delight
+      and serve your customers.
+
+      If you're a Python/Flask developer working with Twilio,
+      you might want to check out these other tutorials:
+
+      [**Appointment Reminders**](//www.twilio.com/docs/tutorials/walkthrough/appointment-reminders/python/flask)
+
+      Use Twilio to automate the process of reaching out to your customers in advance of an upcoming appointment.
+
+      [**Two-Factor Authentication with Authy**](//www.twilio.com/docs/tutorials/walkthrough/two-factor-authentication/python/flask)
+
+      Use Twilio and Twilio-powered Authy OneTouch to implement two-factor authentication (2FA) in your web app
+
+      ### Did this help?
+
+      Thanks for checking out this tutorial! If you have any feedback to share
+      with us, we'd love to hear it. Tweet
+      [@twilio](http://twitter.com/twilio) to let us know what you think.

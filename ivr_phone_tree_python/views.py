@@ -22,7 +22,7 @@ def welcome():
 # post
 @app.route('/ivr/menu', methods=['POST'])
 def menu():
-    selected_option = request.form['digits']
+    selected_option = request.form['Digits']
     option_actions = {'1': _give_instructions,
                       '2': _list_planets}
 
@@ -37,7 +37,7 @@ def menu():
 # post
 @app.route('/ivr/planets', methods=['POST'])
 def planets():
-    selected_option = request.form['digits']
+    selected_option = request.form['Digits']
     option_actions = {'2': "+12024173378",
                       '3': "+12027336386",
                       "4": "+12027336637"}

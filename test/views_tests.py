@@ -1,6 +1,7 @@
 from flask import url_for
 import xml.etree.ElementTree as ElementTree
 from base import BaseTestCase
+import ivr_phone_tree_python.views
 
 
 class ViewsTests(BaseTestCase):

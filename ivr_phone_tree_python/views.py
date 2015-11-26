@@ -76,5 +76,6 @@ def _list_planets(response):
 def _redirect_welcome():
     response = twilio.twiml.Response()
     response.say("Returning to the main menu", voice="alice", language="en-GB")
+    response.redirect(url_for('welcome'))
 
-    return twiml(response.redirect(action=url_for('welcome')))
+    return twiml(response)

@@ -46,8 +46,8 @@ class ViewsTests(BaseTestCase):
         twiml = ElementTree.fromstring(response.data)
 
         # assert
-        assert twiml.findall(".")[0].tag == "Redirect"
-        assert twiml.findall(".")[0].attrib["action"] == url_for('welcome')
+        assert not twiml.findall("./Redirect") is None
+        assert twiml.findall("./Redirect")[0].text == url_for('welcome')
 
     def test_post_to_planets_with_digit_2_3_or_4_should_serve_twiml_with_dial(self):
         # act
@@ -65,5 +65,5 @@ class ViewsTests(BaseTestCase):
         twiml = ElementTree.fromstring(response.data)
 
         # assert
-        assert twiml.findall(".")[0].tag == "Redirect"
-        assert twiml.findall(".")[0].attrib["action"] == url_for('welcome')
+        assert not twiml.findall("./Redirect") is None
+        assert twiml.findall("./Redirect")[0].text == url_for('welcome')

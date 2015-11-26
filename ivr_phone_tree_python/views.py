@@ -10,7 +10,6 @@ def home():
     return render_template('index.html')
 
 
-# post
 @app.route('/ivr/welcome', methods=['POST'])
 def welcome():
     response = twilio.twiml.Response()
@@ -19,7 +18,6 @@ def welcome():
     return twiml(response)
 
 
-# post
 @app.route('/ivr/menu', methods=['POST'])
 def menu():
     selected_option = request.form['Digits']
@@ -34,7 +32,6 @@ def menu():
     return _redirect_welcome()
 
 
-# post
 @app.route('/ivr/planets', methods=['POST'])
 def planets():
     selected_option = request.form['Digits']

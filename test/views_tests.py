@@ -1,7 +1,7 @@
-from flask import url_for
 import xml.etree.ElementTree as ElementTree
+
 from base import BaseTestCase
-import ivr_phone_tree_python.views
+from flask import url_for
 
 
 class ViewsTests(BaseTestCase):
@@ -24,7 +24,7 @@ class ViewsTests(BaseTestCase):
 
     def test_post_to_menu_with_digit_1_should_serve_twiml_with_say_twice_and_hangup(self):
         # act
-        response = self.client.post('/ivr/menu', data=dict(digits="1"), follow_redirects=True)
+        response = self.client.post('/ivr/menu', data=dict(Digits="1"), follow_redirects=True)
         twiml = ElementTree.fromstring(response.data)
 
         # assert
@@ -33,7 +33,7 @@ class ViewsTests(BaseTestCase):
 
     def test_post_to_menu_with_digit_2_should_serve_twiml_with_gather_and_say(self):
         # act
-        response = self.client.post('/ivr/menu', data=dict(digits="2"), follow_redirects=True)
+        response = self.client.post('/ivr/menu', data=dict(Digits="2"), follow_redirects=True)
         twiml = ElementTree.fromstring(response.data)
 
         # assert
@@ -42,7 +42,7 @@ class ViewsTests(BaseTestCase):
 
     def test_post_to_menu_with_digit_other_than_1_or_2_should_redirect_to_welcome(self):
         # act
-        response = self.client.post('/ivr/menu', data=dict(digits="4"), follow_redirects=True)
+        response = self.client.post('/ivr/menu', data=dict(Digits="4"), follow_redirects=True)
         twiml = ElementTree.fromstring(response.data)
 
         # assert
@@ -51,7 +51,7 @@ class ViewsTests(BaseTestCase):
 
     def test_post_to_planets_with_digit_2_3_or_4_should_serve_twiml_with_dial(self):
         # act
-        response = self.client.post('/ivr/planets', data=dict(digits="4"), follow_redirects=True)
+        response = self.client.post('/ivr/planets', data=dict(Digits="4"), follow_redirects=True)
         twiml = ElementTree.fromstring(response.data)
 
         # assert
@@ -61,7 +61,7 @@ class ViewsTests(BaseTestCase):
 
     def test_post_to_planets_with_digit_other_than_2_3_or_4_should_redirect_to_welcome(self):
         # act
-        response = self.client.post('/ivr/planets', data=dict(digits="*"), follow_redirects=True)
+        response = self.client.post('/ivr/planets', data=dict(Digits="*"), follow_redirects=True)
         twiml = ElementTree.fromstring(response.data)
 
         # assert

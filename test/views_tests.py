@@ -55,8 +55,6 @@ class ViewsTests(BaseTestCase):
         twiml = ElementTree.fromstring(response.data)
 
         # assert
-        print(response.data.find("Redirect"))
-
         assert not twiml.findall("./Dial")[0].text is None
 
     def test_post_to_planets_with_digit_other_than_2_3_or_4_should_redirect_to_welcome(self):

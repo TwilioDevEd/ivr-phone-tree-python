@@ -42,7 +42,7 @@ To run the app locally, first clone this repository and `cd` into its directory.
     ```
     
 1. Provision a number under the [Twilio's Manage Numbers](https://www.twilio.com/user/account/phone-numbers/incoming) 
-page on your account. Set the voice URL for the number to http://<your-ngrok-subdomain>.ngrok.io/ivr/welcome
+page on your account. Set the voice URL for the number to http://[your-ngrok-subdomain].ngrok.io/ivr/welcome
 
 That's it
 

@@ -3,7 +3,9 @@
 [![Build Status](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-python.svg)](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-python)
 
 An example application implementing an automated phone line using 
-Python 2.7 and [Flask](http://flask.pocoo.org/) web framework
+Python 2.7 and [Flask](http://flask.pocoo.org/) web framework.
+
+[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/ivr-phone-tree/python/flask)!
 
 ## Local development
 

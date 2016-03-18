@@ -1,6 +1,6 @@
 # IVR Phone Tree: IVR for beginners. Powered by Twilio - Python/Flask
 
-[![Build Status](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-python.svg)](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-python)
+[![Build Status](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-flask.svg)](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-flask)
 
 This is an application example implementing an automated phone line using
 Python 2.7 and [Flask](http://flask.pocoo.org/) web framework.

@@ -2,16 +2,19 @@
 
 [![Build Status](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-python.svg)](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-python)
 
-An example application implementing an automated phone line using 
+This is an application example implementing an automated phone line using
 Python 2.7 and [Flask](http://flask.pocoo.org/) web framework.
 
 [Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/ivr-phone-tree/python/flask)!
 
 ## Local development
 
-To run the app locally, first clone this repository and `cd` into its directory. Then:
+To run the app locally
 
-1. Create a new virtual environment:
+1. Clone this repository and `cd` into it.
+
+1. Create a new virtual environment.
+
     - If using vanilla [virtualenv](https://virtualenv.pypa.io/en/latest/):
 
         ```
@@ -25,34 +28,34 @@ To run the app locally, first clone this repository and `cd` into its directory.
         mkvirtualenv account-verification-flask
         ```
 
-1. Install the requirements:
+1. Install the requirements.
 
     ```
     pip install -r requirements.txt
     ```
 
-1. Start the development server
+1. Start the development server.
 
     ```
     python manage.py runserver
     ```
-    
-1. Expose the application to the wider Internet using [ngrok](https://ngrok.com/)
+
+1. Expose the application to the wider Internet using [ngrok](https://ngrok.com/).
 
     ```
     ngrok http 5000 -host-header="localhost:5000"
     ```
-    
-1. Provision a number under the [Twilio's Manage Numbers](https://www.twilio.com/user/account/phone-numbers/incoming) 
+
+1. Provision a number under the [Twilio's Manage Numbers](https://www.twilio.com/user/account/phone-numbers/incoming)
 page on your account. Set the voice URL for the number to http://[your-ngrok-subdomain].ngrok.io/ivr/welcome
 
-That's it
+That's it!
 
 ## Run the tests
 
 You can run the tests locally through [coverage](http://coverage.readthedocs.org/):
 
-1. Run the tests:
+1. Run the tests.
 
     ```
     $ coverage run manage.py test

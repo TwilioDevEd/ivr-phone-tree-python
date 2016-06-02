@@ -23,6 +23,7 @@ This project is built using [Flask](http://flask.pocoo.org/) web framework.
    ```
 
 1. Create a new virtual environment.
+
     - If using vanilla [virtualenv](https://virtualenv.pypa.io/en/latest/):
 
         ```bash

@@ -60,3 +60,4 @@ target/
 
 .env
 .env.test
+/venv

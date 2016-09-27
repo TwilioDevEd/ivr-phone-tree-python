@@ -4,7 +4,7 @@
 
 # IVR Phone Tree: IVR for beginners. Powered by Twilio - Python/Flask
 
-[![Build Status](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-flask.svg)](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-flask)
+[![Build Status](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-python.svg?branch=master)](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-python)
 
 This is an application example implementing an automated phone line using
 Python 2.7 and [Flask](http://flask.pocoo.org/) web framework.
@@ -18,11 +18,12 @@ This project is built using [Flask](http://flask.pocoo.org/) web framework.
 1. First clone this repository and `cd` into it.
 
    ```bash
-   $ git clone git@github.com:TwilioDevEd/sms2fa-flask.git
-   $ cd sms2fa-flask
+   $ git clone git@github.com:TwilioDevEd/ivr-phone-tree-python.git
+   $ cd ivr-phone-tree-python
    ```
 
 1. Create a new virtual environment.
+
     - If using vanilla [virtualenv](https://virtualenv.pypa.io/en/latest/):
 
         ```bash
@@ -33,7 +34,7 @@ This project is built using [Flask](http://flask.pocoo.org/) web framework.
     - If using [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/):
 
         ```bash
-        mkvirtualenv automated-survey
+        mkvirtualenv ivr-phone-tree-python
         ```
 
 1. Install the dependencies.

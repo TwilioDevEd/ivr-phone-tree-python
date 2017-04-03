@@ -1,6 +1,7 @@
 ﻿from flask import render_template, redirect, url_for, request, session, flash
 from ivr_phone_tree_python import app
-import twilio.twiml
+from twilio.twiml.voice_response import VoiceResponse
+
 from ivr_phone_tree_python.view_helpers import twiml
 
 
@@ -12,7 +13,7 @@ def home():
 
 @app.route('/ivr/welcome', methods=['POST'])
 def welcome():
-    response = twilio.twiml.Response()
+    response = VoiceResponse()
     with response.gather(numDigits=1, action=url_for('menu'), method="POST") as g:
         g.play(url="http://howtodocs.s3.amazonaws.com/et-phone.mp3", loop=3)
     return twiml(response)
@@ -25,7 +26,7 @@ def menu():
                       '2': _list_planets}
 
     if option_actions.has_key(selected_option):
-        response = twilio.twiml.Response()
+        response = VoiceResponse()
         option_actions[selected_option](response)
         return twiml(response)
 
@@ -40,7 +41,7 @@ def planets():
                       "4": "+12027336637"}
 
     if option_actions.has_key(selected_option):
-        response = twilio.twiml.Response()
+        response = VoiceResponse()
         response.dial(option_actions[selected_option])
         return twiml(response)
 
@@ -74,7 +75,7 @@ def _list_planets(response):
 
 
 def _redirect_welcome():
-    response = twilio.twiml.Response()
+    response = VoiceResponse()
     response.say("Returning to the main menu", voice="alice", language="en-GB")
     response.redirect(url_for('welcome'))
 

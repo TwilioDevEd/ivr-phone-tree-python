@@ -15,7 +15,7 @@ def home():
 def welcome():
     response = VoiceResponse()
     with response.gather(numDigits=1, action=url_for('menu'), method="POST") as g:
-        g.play(url="http://howtodocs.s3.amazonaws.com/et-phone.mp3", loop=3)
+        g.play(url="https://raw.githubusercontent.com/TwilioDevEd/ivr-phone-tree-servlets/master/et-phone.mp3", loop=3)
     return twiml(response)
 
 

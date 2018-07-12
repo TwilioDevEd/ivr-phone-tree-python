@@ -14,8 +14,12 @@ def home():
 @app.route('/ivr/welcome', methods=['POST'])
 def welcome():
     response = VoiceResponse()
-    with response.gather(num_digits=1, action=url_for('menu'), method="POST") as g:
-        g.play(url="http://howtodocs.s3.amazonaws.com/et-phone.mp3", loop=3)
+    with response.gather(
+        num_digits=1, action=url_for('menu'), method="POST"
+    ) as g:
+        g.say(message="Thanks for calling the ET Phone Home Service!" +
+              "Please press 1 for directions." +
+              "Press 2 for a list of planets to call.", loop=3)
     return twiml(response)
 
 

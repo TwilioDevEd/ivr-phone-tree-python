@@ -1,7 +1,14 @@
-﻿from flask import render_template, redirect, url_for, request, session, flash
-from ivr_phone_tree_python import app
+﻿from flask import (
+    flash,
+    render_template,
+    redirect,
+    request,
+    session,
+    url_for,
+)
 from twilio.twiml.voice_response import VoiceResponse
 
+from ivr_phone_tree_python import app
 from ivr_phone_tree_python.view_helpers import twiml
 
 
@@ -55,10 +62,11 @@ def planets():
 # private methods
 
 def _give_instructions(response):
-    response.say("To get to your extraction point, get on your bike and go down " +
-                 "the street. Then Left down an alley. Avoid the police cars. Turn left " +
-                 "into an unfinished housing development. Fly over the roadblock. Go " +
-                 "passed the moon. Soon after you will see your mother ship.",
+    response.say("To get to your extraction point, get on your bike and go " +
+                 "down the street. Then Left down an alley. Avoid the police" +
+                 " cars. Turn left into an unfinished housing development." +
+                 "Fly over the roadblock. Go past the moon. Soon after " +
+                 "you will see your mother ship.",
                  voice="alice", language="en-GB")
 
     response.say("Thank you for calling the ET Phone Home Service - the " +
@@ -69,10 +77,13 @@ def _give_instructions(response):
 
 
 def _list_planets(response):
-    with response.gather(numDigits=1, action=url_for('planets'), method="POST") as g:
-        g.say("To call the planet Broh doe As O G, press 2. To call the planet " +
-              "DuhGo bah, press 3. To call an oober asteroid to your location, press 4. To " +
-              "go back to the main menu, press the star key ",
+    with response.gather(
+        numDigits=1, action=url_for('planets'), method="POST"
+    ) as g:
+        g.say("To call the planet Broh doe As O G, press 2. To call the " +
+              "planet DuhGo bah, press 3. To call an oober asteroid " +
+              "to your location, press 4. To go back to the main menu " +
+              " press the star key.",
               voice="alice", language="en-GB", loop=3)
 
     return response

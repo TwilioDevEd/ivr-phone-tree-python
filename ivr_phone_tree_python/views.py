@@ -24,7 +24,7 @@ def welcome():
     with response.gather(
         num_digits=1, action=url_for('menu'), method="POST"
     ) as g:
-        g.say(message="Thanks for calling the ET Phone Home Service!" +
+        g.say(message="Thanks for calling the E T Phone Home Service. " +
               "Please press 1 for directions." +
               "Press 2 for a list of planets to call.", loop=3)
     return twiml(response)
@@ -51,7 +51,7 @@ def planets():
                       '3': "+12027336386",
                       "4": "+12027336637"}
 
-    if option_actions.has_key(selected_option):
+    if selected_option in option_actions:
         response = VoiceResponse()
         response.dial(option_actions[selected_option])
         return twiml(response)
@@ -69,7 +69,7 @@ def _give_instructions(response):
                  "you will see your mother ship.",
                  voice="alice", language="en-GB")
 
-    response.say("Thank you for calling the ET Phone Home Service - the " +
+    response.say("Thank you for calling the E T Phone Home Service - the " +
                  "adventurous alien's first choice in intergalactic travel")
 
     response.hangup()

@@ -13,7 +13,7 @@ mock==1.3.0
 nose==1.3.7
 pbr==1.8.1
 pycparser==2.14
-pytz==2015.7
+pytz==2020.1
 requests==2.8.1
 selenium==2.48.0
 six==1.10.0

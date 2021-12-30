@@ -16,7 +16,7 @@ pycparser==2.14
 pytz==2015.7
 requests==2.8.1
 selenium==2.48.0
-six==1.10.0
+six==1.16.0
 traceback2==1.4.0
 twilio==6.9.0
 unittest2==1.1.0

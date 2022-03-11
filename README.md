@@ -70,8 +70,7 @@ This project is built using [Flask](http://flask.pocoo.org/) web framework.
   ```
   http://<your-ngrok-subdomain>.ngrok.io/ivr/welcome
   ```
-
-  ![Configure Voice](http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
+  [Learn how to configure your Twilio phone number for Programmable Voice](https://www.twilio.com/docs/voice/tutorials/ivr-phone-tree-python-flask#answering-a-phone-call)
 
 
 ## Meta

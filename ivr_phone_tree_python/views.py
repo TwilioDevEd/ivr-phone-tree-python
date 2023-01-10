@@ -47,9 +47,9 @@ def menu():
 @app.route('/ivr/planets', methods=['POST'])
 def planets():
     selected_option = request.form['Digits']
-    option_actions = {'2': "+12024173378",
-                      '3': "+12027336386",
-                      "4": "+12027336637"}
+    option_actions = {'2': "+19295566487",
+                      '3': "+17262043675",
+                      "4": "+16513582243"}
 
     if selected_option in option_actions:
         response = VoiceResponse()

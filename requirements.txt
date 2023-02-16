@@ -1,6 +1,6 @@
 blinker==1.4
 coverage==4.0.2
-Flask==0.10.1
+Flask==2.2.3
 Flask-Script==2.0.5
 Flask-Testing==0.4.2
 funcsigs==0.4

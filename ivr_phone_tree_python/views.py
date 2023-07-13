@@ -67,7 +67,7 @@ def _give_instructions(response):
                  " cars. Turn left into an unfinished housing development." +
                  "Fly over the roadblock. Go past the moon. Soon after " +
                  "you will see your mother ship.",
-                 voice="alice", language="en-GB")
+                 voice="Polly.Amy", language="en-GB")
 
     response.say("Thank you for calling the E T Phone Home Service - the " +
                  "adventurous alien's first choice in intergalactic travel")
@@ -84,14 +84,14 @@ def _list_planets(response):
               "planet DuhGo bah, press 3. To call an oober asteroid " +
               "to your location, press 4. To go back to the main menu " +
               " press the star key.",
-              voice="alice", language="en-GB", loop=3)
+              voice="Polly.Amy", language="en-GB", loop=3)
 
     return response
 
 
 def _redirect_welcome():
     response = VoiceResponse()
-    response.say("Returning to the main menu", voice="alice", language="en-GB")
+    response.say("Returning to the main menu", voice="Polly.Amy", language="en-GB")
     response.redirect(url_for('welcome'))
 
     return twiml(response)
